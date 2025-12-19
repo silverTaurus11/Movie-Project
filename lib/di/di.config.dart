@@ -1,0 +1,60 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
+
+// **************************************************************************
+// InjectableConfigGenerator
+// **************************************************************************
+
+// ignore_for_file: type=lint
+// coverage:ignore-file
+
+// ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:dio/dio.dart' as _i361;
+import 'package:dummy_project/data/repository/movie_repository_impl.dart'
+    as _i806;
+import 'package:dummy_project/data/resources/network/remote_data_source.dart'
+    as _i1029;
+import 'package:dummy_project/data/resources/network/remote_data_source_impl.dart'
+    as _i120;
+import 'package:dummy_project/di/network_module.dart' as _i636;
+import 'package:dummy_project/domain/repository/movie_repository.dart' as _i511;
+import 'package:dummy_project/domain/usecase/get_top_rated_movies.dart'
+    as _i842;
+import 'package:dummy_project/presentation/feature/top_rated_movie/bloc/top_rated_movie_bloc.dart'
+    as _i656;
+import 'package:get_it/get_it.dart' as _i174;
+import 'package:injectable/injectable.dart' as _i526;
+
+extension GetItInjectableX on _i174.GetIt {
+  // initializes the registration of main-scope dependencies inside of GetIt
+  _i174.GetIt init({
+    String? environment,
+    _i526.EnvironmentFilter? environmentFilter,
+  }) {
+    final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    final networkModule = _$NetworkModule();
+    gh.lazySingleton<_i361.Dio>(
+      () => networkModule.dio(
+        gh<String>(instanceName: 'baseUrl'),
+        gh<String>(instanceName: 'token'),
+      ),
+    );
+    gh.lazySingleton<_i1029.MovieRemoteDataSource>(
+      () => _i120.MovieRemoteDataSourceImpl(dio: gh<_i361.Dio>()),
+    );
+    gh.lazySingleton<_i511.MovieRepository>(
+      () => _i806.MovieRepositoryImpl(
+        remoteDataSource: gh<_i1029.MovieRemoteDataSource>(),
+      ),
+    );
+    gh.factory<_i842.GetTopRatedMovies>(
+      () => _i842.GetTopRatedMovies(gh<_i511.MovieRepository>()),
+    );
+    gh.factory<_i656.TopRatedMovieBloc>(
+      () => _i656.TopRatedMovieBloc(gh<_i842.GetTopRatedMovies>()),
+    );
+    return this;
+  }
+}
+
+class _$NetworkModule extends _i636.NetworkModule {}
