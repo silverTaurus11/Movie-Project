@@ -32,16 +32,11 @@ class TopRatedMovieScreen extends StatelessWidget {
               itemCount: state.movies.length,
               itemBuilder: (_, index) {
                 final movie = state.movies[index];
-                return MediaQuery(
-                  data: MediaQuery.of(
-                    context,
-                  ).copyWith(textScaler: const TextScaler.linear(1.0)),
-                  child: MovieCard(
-                    title: movie.title,
-                    posterUrl: movie.posterPath.toImageUrl(),
-                    voteAverage: movie.voteAverage,
-                    releaseDate: movie.releaseDate,
-                  ),
+                return MovieCard(
+                  title: movie.title,
+                  posterUrl: movie.posterPath.toImageUrl(),
+                  voteAverage: movie.voteAverage,
+                  releaseDate: movie.releaseDate,
                 );
               },
             );
