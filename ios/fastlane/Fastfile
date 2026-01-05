@@ -1,0 +1,10 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Build DEV iOS"
+  lane :dev do
+    sh "flutter clean"
+    sh "flutter pub get"
+    sh "flutter build ios --debug --flavor dev -t lib/main_dev.dart --no-codesign"
+  end
+end

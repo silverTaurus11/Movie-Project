@@ -1,0 +1,17 @@
+default_platform(:android)
+
+platform :android do
+  desc "Build DEV APK"
+  lane :dev do
+    sh "flutter clean"
+    sh "flutter pub get"
+    sh "flutter build apk --debug --flavor dev -t lib/main_dev.dart"
+    firebase_app_distribution(
+        app: ENV["FIREBASE_APP_ID"],
+        apk_path: "../build/app/outputs/flutter-apk/app-dev-debug.apk",
+        groups: "me",
+        release_notes: "DEV build via Fastlane"
+     )
+  end
+end
+

@@ -46,3 +46,9 @@ app.*.map.json
 
 .env.prod
 android/build/
+android/fastlane/build
+ios/fastlane/build
+ios/Gemfile.lock
+credential/firebase-dev.json
+android/Gemfile.lock
+android/fastlane/report.xml
