@@ -1,0 +1,3 @@
+#include "Debug.xcconfig"
+PRODUCT_BUNDLE_IDENTIFIER=com.gayuh.movies.dev
+GOOGLE_SERVICE_INFO_PLIST=GoogleService-Info-Dev.plist
