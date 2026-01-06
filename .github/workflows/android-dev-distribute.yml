@@ -10,29 +10,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      # Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
+      # Setup Java (Gradle needs JDK 17)
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      # Setup Flutter (pakai channel beta untuk Dart >= 3.6.1)
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: stable
+          channel: "beta"
 
-      - name: Setup Ruby (for Fastlane)
+      # Setup Ruby & Bundler
+      - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.1"
+          ruby-version: "3.2"
           bundler-cache: true
 
       - name: Decode Firebase DEV service account
         run: |
           echo "$FIREBASE_DEV_SERVICE_ACCOUNT" > firebase.json
 
+        # Install Fastlane & plugins
+      - name: Install Fastlane & plugins
+        run: |
+          cd android
+          bundle install
+
       - name: Android DEV Distribute
         env:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_DEV_APP_ID }}
           GOOGLE_APPLICATION_CREDENTIALS: firebase.json
-        run: |
-          cd android
-          bundle install
-          fastlane dev
+        run: fastlane dev
