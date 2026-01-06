@@ -48,22 +48,19 @@ jobs:
 
       - name: Create Firebase service account file
         run: |
-          echo '${{ secrets.FIREBASE_DEV_SERVICE_ACCOUNT }}' > firebase.json
+          mkdir -p credential
+          echo '${{ secrets.FIREBASE_DEV_SERVICE_ACCOUNT }}' > credential/firebase-dev.json
 
-      - name: Debug Firebase Auth
+      - name: Verify Firebase credential
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: firebase.json
+          GOOGLE_APPLICATION_CREDENTIALS: credential/firebase-dev.json
         run: |
-          echo "== File =="
-          ls -la firebase.json
-          echo "== project_id =="
-          grep project_id firebase.json
+          firebase projects:list
 
       - name: Android DEV Distribute
         env:
           KEY_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_DEV_APP_ID }}
-          GOOGLE_APPLICATION_CREDENTIALS: firebase.json
         run: |
           cd android
           bundle install
