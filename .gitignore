@@ -54,3 +54,4 @@ android/Gemfile.lock
 android/fastlane/report.xml
 credential/firebase-prod.json
 android/app-signing-cert.pem
+android/keystore.base64
