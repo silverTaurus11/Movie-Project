@@ -36,7 +36,7 @@ jobs:
 
       - name: Decode Firebase DEV service account
         run: |
-          echo "$FIREBASE_DEV_SERVICE_ACCOUNT" > firebase.json
+          echo '${{ secrets.FIREBASE_DEV_SERVICE_ACCOUNT }}' > firebase.json
 
       - name: Decode keystore
         run: |
@@ -46,7 +46,7 @@ jobs:
         run: |
           echo "storeFile=../upload-keystore.jks" >> android/key.properties
           echo "storePassword=*****" >> android/key.properties
-          echo "keyAlias=ANDROID_KEYSTORE_ALIAS" >> android/key.properties
+          echo "keyAlias=$ANDROID_KEYSTORE_ALIAS" >> android/key.properties
           echo "keyPassword=*****" >> android/key.properties
 
       - name: Android DEV Distribute
