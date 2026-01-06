@@ -38,14 +38,11 @@ jobs:
         run: |
           echo "$FIREBASE_DEV_SERVICE_ACCOUNT" > firebase.json
 
-        # Install Fastlane & plugins
-      - name: Install Fastlane & plugins
-        run: |
-          cd android
-          bundle install
-
       - name: Android DEV Distribute
         env:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_DEV_APP_ID }}
           GOOGLE_APPLICATION_CREDENTIALS: firebase.json
-        run: fastlane dev
+        run: |
+          cd android
+          bundle install
+          fastlane dev
