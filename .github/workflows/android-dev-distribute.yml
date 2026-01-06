@@ -50,6 +50,15 @@ jobs:
         run: |
           echo '${{ secrets.FIREBASE_DEV_SERVICE_ACCOUNT }}' > firebase.json
 
+      - name: Debug Firebase Auth
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: firebase.json
+        run: |
+          echo "== File =="
+          ls -la firebase.json
+          echo "== project_id =="
+          grep project_id firebase.json
+
       - name: Android DEV Distribute
         env:
           KEY_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
