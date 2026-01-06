@@ -1,0 +1,38 @@
+name: Android DEV Firebase Distribution
+
+on:
+  push:
+    tags:
+      - "dev-*"
+
+jobs:
+  android-dev:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: stable
+
+      - name: Setup Ruby (for Fastlane)
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.1"
+          bundler-cache: true
+
+      - name: Decode Firebase DEV service account
+        run: |
+          echo "$FIREBASE_DEV_SERVICE_ACCOUNT" > firebase.json
+
+      - name: Android DEV Distribute
+        env:
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_DEV_APP_ID }}
+          GOOGLE_APPLICATION_CREDENTIALS: firebase.json
+        run: |
+          cd android
+          bundle install
+          fastlane dev
