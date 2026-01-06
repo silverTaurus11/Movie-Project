@@ -38,8 +38,20 @@ jobs:
         run: |
           echo "$FIREBASE_DEV_SERVICE_ACCOUNT" > firebase.json
 
+      - name: Decode keystore
+        run: |
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > upload-keystore.jks
+
+      - name: Create key.properties
+        run: |
+          echo "storeFile=upload-keystore.jks" >> android/key.properties
+          echo "storePassword=*****" >> android/key.properties
+          echo "keyAlias=ANDROID_KEYSTORE_ALIAS" >> android/key.properties
+          echo "keyPassword=*****" >> android/key.properties
+
       - name: Android DEV Distribute
         env:
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_DEV_APP_ID }}
           GOOGLE_APPLICATION_CREDENTIALS: firebase.json
         run: |
