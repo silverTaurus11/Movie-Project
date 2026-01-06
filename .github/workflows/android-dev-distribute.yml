@@ -40,11 +40,11 @@ jobs:
 
       - name: Decode keystore
         run: |
-          echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > upload-keystore.jks
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > android/upload-keystore.jks
 
       - name: Create key.properties
         run: |
-          echo "storeFile=upload-keystore.jks" >> android/key.properties
+          echo "storeFile=../upload-keystore.jks" >> android/key.properties
           echo "storePassword=*****" >> android/key.properties
           echo "keyAlias=ANDROID_KEYSTORE_ALIAS" >> android/key.properties
           echo "keyPassword=*****" >> android/key.properties
