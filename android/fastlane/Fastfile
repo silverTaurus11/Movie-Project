@@ -15,3 +15,26 @@ platform :android do
   end
 end
 
+platform :android do
+  desc "Build PROD AAB (Release) & Distribute via Firebase"
+  lane :prod_release do
+
+    sh "flutter clean"
+    sh "flutter pub get"
+
+    sh "flutter build appbundle \
+        --release \
+        --flavor prod \
+        -t lib/main_prod.dart"
+
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID"],
+      android_artifact_type: "AAB",
+      android_artifact_path: "../build/app/outputs/bundle/prodRelease/app-prod-release.aab",
+      groups: "me",
+      release_notes: "PROD AAB via Fastlane"
+    )
+  end
+end
+
+

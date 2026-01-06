@@ -1,43 +1,40 @@
-name: Android DEV Firebase Distribution
+name: Android Common Pipeline
 
 on:
-  push:
-    tags:
-      - "dev-*"
+  workflow_call:
+    inputs:
+      fastlane_lane:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: string
 
 jobs:
-  android-dev:
+  build:
     runs-on: ubuntu-latest
-    environment: DEVELOPMENT
+    environment: ${{ inputs.environment }}
 
     steps:
-      # Checkout code
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Setup Java (Gradle needs JDK 17)
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
 
-      # Setup Flutter (pakai channel beta untuk Dart >= 3.6.1)
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: "beta"
 
-      # Setup Ruby & Bundler
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.2"
           bundler-cache: true
-
-      - name: Install Firebase CLI
-        run: |
-          npm install -g firebase-tools
 
       - name: Decode keystore
         run: |
@@ -53,15 +50,14 @@ jobs:
       - name: Create Firebase service account file
         run: |
           mkdir -p credential
-          echo '${{ secrets.FIREBASE_DEV_SERVICE_ACCOUNT }}' > credential/firebase-dev.json
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > credential/firebase.json
 
-      - name: Android DEV Distribute
+      - name: Android Distribute
         env:
           KEY_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          FIREBASE_APP_ID: ${{ secrets.FIREBASE_DEV_APP_ID }}
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credential/firebase-dev.json
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credential/firebase.json
         run: |
           cd android
-          firebase projects:list
           bundle install
-          fastlane dev
+          fastlane ${{ inputs.fastlane_lane }}

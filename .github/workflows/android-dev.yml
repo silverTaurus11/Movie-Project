@@ -1,0 +1,14 @@
+name: Android DEV Firebase Distribution
+
+on:
+  push:
+    tags:
+      - "dev-*"
+
+jobs:
+  android-dev:
+    uses: ./.github/workflows/android-common.yml
+    secrets: inherit
+    with:
+      fastlane_lane: dev
+      environment: DEVELOPMENT
