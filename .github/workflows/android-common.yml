@@ -44,7 +44,7 @@ jobs:
         run: |
           echo "storeFile=../upload-keystore.jks" >> android/key.properties
           echo "storePassword=*****" >> android/key.properties
-          echo "keyAlias=$ANDROID_KEYSTORE_ALIAS" >> android/key.properties
+          echo "keyAlias=${{ secrets.ANDROID_KEYSTORE_ALIAS }}" >> android/key.properties
           echo "keyPassword=*****" >> android/key.properties
 
       - name: Create Firebase service account file
