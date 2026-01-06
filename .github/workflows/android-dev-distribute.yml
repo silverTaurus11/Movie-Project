@@ -35,8 +35,9 @@ jobs:
           ruby-version: "3.2"
           bundler-cache: true
 
-      - name: Install Firebase CLI
+      - name: Install Bundle & Firebase CLI
         run: |
+          bundle install
           npm install -g firebase-tools
 
       - name: Decode keystore
@@ -67,5 +68,4 @@ jobs:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_DEV_APP_ID }}
         run: |
           cd android
-          bundle install
           fastlane dev
