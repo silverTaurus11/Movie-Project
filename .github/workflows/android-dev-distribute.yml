@@ -35,10 +35,6 @@ jobs:
           ruby-version: "3.2"
           bundler-cache: true
 
-      - name: Decode Firebase DEV service account
-        run: |
-          echo '${{ secrets.FIREBASE_DEV_SERVICE_ACCOUNT }}' > firebase.json
-
       - name: Decode keystore
         run: |
           echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > android/upload-keystore.jks
@@ -54,7 +50,7 @@ jobs:
         env:
           KEY_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_DEV_APP_ID }}
-          GOOGLE_APPLICATION_CREDENTIALS: firebase.json
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_DEV_SERVICE_ACCOUNT }}
         run: |
           cd android
           bundle install
