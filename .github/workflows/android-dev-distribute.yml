@@ -58,7 +58,7 @@ jobs:
 
       - name: Verify Firebase credential
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: credential/firebase-dev.json
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credential/firebase-dev.json
         run: |
           firebase projects:list
 
