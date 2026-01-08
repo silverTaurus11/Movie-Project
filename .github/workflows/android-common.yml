@@ -11,6 +11,24 @@ on:
         type: string
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    continue-on-error: false # default, eksplisit biar jelas
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "beta"
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run Flutter tests
+        run: flutter test --coverage
+
   build:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
@@ -19,16 +37,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "beta"
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: "beta"
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1

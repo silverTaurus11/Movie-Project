@@ -37,7 +37,7 @@ dependencies:
 
   # ===== State Management =====
   bloc: ^9.1.0
-  flutter_bloc: ^9.1.1
+  flutter_bloc: ^9.1.0
 
   # ===== Dependency Injection =====
   get_it: ^9.2.0
@@ -73,17 +73,20 @@ dev_dependencies:
   # rules and activating additional ones.
 
   # Code generation
-  build_runner: ^2.10.4
-  injectable_generator: ^2.11.1
+  injectable_generator: ^2.8.1
+  build_runner: ^2.4.8
 
   # Lint
   flutter_lints: ^6.0.0
 
   # Testing (Flutter-friendly)
-  mocktail: ^1.0.4
+  bloc_test: ^10.0.0
+  mocktail: ^1.0.3
+  network_image_mock: ^2.1.1
 
-  flutter_launcher_icons: ^0.14.4
+
   intl_utils: ^2.8.11
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
