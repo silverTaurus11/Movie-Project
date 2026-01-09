@@ -9,7 +9,6 @@ jobs:
   android-dev:
     uses: ./.github/workflows/android/android-common.yml
     secrets: inherit
-    working-directory: android
     with:
       fastlane_lane: dev
       environment: DEVELOPMENT
