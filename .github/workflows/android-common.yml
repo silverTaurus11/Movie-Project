@@ -12,7 +12,7 @@ on:
 
 jobs:
   setup:
-    uses: ./.github/workflows/setup-common.yml@main
+    uses: ./.github/workflows/setup-common.yml
 
   flutter-test:
     uses: ./.github/workflows/flutter-test.yml
