@@ -16,6 +16,7 @@ jobs:
 
   flutter-test:
     uses: ./.github/workflows/flutter-test.yml
+    needs: setup
 
   android-build:
     runs-on: ubuntu-latest
