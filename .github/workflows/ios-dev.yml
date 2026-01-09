@@ -40,9 +40,9 @@ jobs:
         run: |
           mkdir -p credential
           echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > credential/firebase.json
-      - env:
+
+      - name: IOS Distribute
+        env:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credential/firebase.json
-
-      - name: Run Flutter tests
         run: flutter test --coverage
