@@ -8,5 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: false
     steps:
+      - name: Common setup
+        uses: ./.github/actions/setup-common
+
       - name: Run Flutter tests
         run: flutter test --coverage

@@ -1,0 +1,19 @@
+name: Common Setup
+description: Checkout, Flutter, and Ruby setup
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: beta
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: "3.2"
+        bundler-cache: true
