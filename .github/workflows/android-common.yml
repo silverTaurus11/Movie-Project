@@ -11,6 +11,9 @@ on:
         type: string
 
 jobs:
+  setup:
+    uses: ./.github/workflows/setup-common.yml@main
+
   flutter-test:
     uses: ./.github/workflows/flutter-test.yml
 
@@ -20,9 +23,6 @@ jobs:
     environment: ${{ inputs.environment }}
 
     steps:
-      - name: Setup Machine
-        uses: ./.github/actions/setup-common
-
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
