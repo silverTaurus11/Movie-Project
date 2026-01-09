@@ -33,7 +33,7 @@ jobs:
 
       - name: Install iOS Pods
         run: |
-          cd ../ios
+          cd ${{ github.workspace }}/ios
           pod install --repo-update
 
       - name: IOS Build & Distribution
