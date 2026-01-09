@@ -2,8 +2,6 @@ name: iOS DEV Firebase Distribution
 
 on:
   push:
-    branches:
-      - main
     tags:
       - "dev-ios-*"
 
@@ -30,11 +28,6 @@ jobs:
         run: |
           sudo gem install cocoapods
           pod --version
-
-      - name: Install iOS Pods
-        run: |
-          cd ios
-          pod install
 
       - name: Create Firebase service account file
         run: |
