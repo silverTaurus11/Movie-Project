@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: false
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Common setup
         uses: ./.github/actions/setup-common
 
