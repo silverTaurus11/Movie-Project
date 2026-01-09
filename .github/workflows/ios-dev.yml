@@ -6,23 +6,20 @@ on:
       - "dev-ios-*"
 
 jobs:
-  ios-dev:
+  flutter-test:
+    uses: ./.github/workflows/flutter-test.yml
+
+  build:
     runs-on: macos-latest
+    needs: flutter-test
+    environment: "DEVELOPMENT"
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: "beta"
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.2"
-          bundler-cache: true
+      - name: Common setup
+        uses: ./.github/actions/setup-common
 
       - name: Install CocoaPods
         run: |
@@ -34,8 +31,11 @@ jobs:
           mkdir -p credential
           echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > credential/firebase.json
 
-      - name: IOS Distribute
+      - name: IOS Build & Distribution
         env:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credential/firebase.json
-        run: flutter test --coverage
+        run: |
+          cd ios
+          bundle install
+          fastlane dev

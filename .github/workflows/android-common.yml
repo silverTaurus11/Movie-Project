@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        
+
       - name: Common setup
         uses: ./.github/actions/setup-common
 
@@ -48,7 +48,7 @@ jobs:
           mkdir -p credential
           echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > credential/firebase.json
 
-      - name: Android Distribute
+      - name: Android Build & Distribution
         env:
           KEY_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
