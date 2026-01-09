@@ -7,7 +7,7 @@ on:
 
 jobs:
   android-dev:
-    uses: ./.github/workflows/android/android-common.yml
+    uses: ./.github/workflows/android-common.yml
     secrets: inherit
     with:
       fastlane_lane: dev
