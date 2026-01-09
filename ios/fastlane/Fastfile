@@ -1,10 +1,74 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Build DEV iOS"
+  desc "Build & distribute DEV iOS to Firebase"
   lane :dev do
     sh "flutter clean"
     sh "flutter pub get"
-    sh "flutter build ios --debug --flavor dev -t lib/main_dev.dart --no-codesign"
+
+    sh "flutter build ios --release --flavor dev -t lib/main_dev.dart --no-codesign"
+
+    sh "xcodebuild archive -workspace ../../ios/Runner.xcworkspace -scheme dev -archivePath ../../build/dev.xcarchive"
+
+    sh """
+        xcodebuild -exportArchive \
+          -archivePath ../../build/dev.xcarchive \
+          -exportOptionsPlist ../../ios/ExportOptions-dev.plist \
+          -exportPath ../../build/ipa \
+          -allowProvisioningUpdates
+      """
+
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID"],
+      ipa_path: "../../build/ipa/Runner.ipa",
+      groups: "me",
+      release_notes: "IOS-DEV build via Fastlane"
+    )
+  end
+end
+
+platform :ios do
+
+  before_all do
+    app_store_connect_api_key(
+      key_id: ENV["ASC_KEY_ID"],
+      issuer_id: ENV["ASC_ISSUER_ID"],
+      key_filepath: ENV["ASC_KEY_PATH"],
+      in_house: false
+    )
+  end
+
+  desc "Build & upload iOS production build to TestFlight"
+  lane :prod do
+    # Always operate from repo root
+    sh "cd .. && flutter clean"
+    sh "cd .. && flutter pub get"
+
+    # Build Flutter (no signing yet)
+    sh "cd .. && flutter build ios \
+        --release \
+        -t lib/main_prod.dart \
+        --no-codesign"
+
+    # Archive
+    sh "cd .. && xcodebuild archive \
+        -workspace ios/Runner.xcworkspace \
+        -scheme Runner \
+        -configuration Release \
+        -archivePath build/prod.xcarchive"
+
+    # Export signed IPA for App Store
+    sh "cd .. && xcodebuild -exportArchive \
+        -archivePath build/prod.xcarchive \
+        -exportOptionsPlist ios/ExportOptions-prod.plist \
+        -exportPath build/ipa \
+        -allowProvisioningUpdates"
+
+    # Upload to TestFlight
+    upload_to_testflight(
+      ipa: "build/ipa/Runner.ipa",
+      skip_waiting_for_build_processing: true,
+      skip_submission: true
+    )
   end
 end

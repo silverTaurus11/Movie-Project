@@ -21,7 +21,7 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 [bundle exec] fastlane ios dev
 ```
 
-Build DEV iOS
+Build & distribute DEV iOS to Firebase
 
 ----
 

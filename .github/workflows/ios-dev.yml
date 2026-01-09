@@ -1,0 +1,45 @@
+name: iOS DEV Firebase Distribution
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "dev-ios-*"
+
+jobs:
+  ios-dev:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "beta"
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+          bundler-cache: true
+
+      - name: Install CocoaPods
+        run: |
+          sudo gem install cocoapods
+          pod --version
+
+      - name: Install iOS Pods
+        run: |
+          cd ios
+          pod install
+
+      - name: Create Firebase service account file
+        run: |
+          mkdir -p credential
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > credential/firebase.json
+      - env:
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credential/firebase.json
