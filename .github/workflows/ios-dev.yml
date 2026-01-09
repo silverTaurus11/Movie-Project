@@ -43,3 +43,6 @@ jobs:
       - env:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credential/firebase.json
+
+      - name: Run Flutter tests
+        run: flutter test --coverage
