@@ -31,6 +31,11 @@ jobs:
           mkdir -p credential
           echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > credential/firebase.json
 
+      - name: Install iOS Pods
+        run: |
+          cd ios
+          pod install --repo-update
+
       - name: IOS Build & Distribution
         env:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
