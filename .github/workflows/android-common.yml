@@ -16,7 +16,7 @@ jobs:
 
   android-build:
     runs-on: ubuntu-latest
-    needs: test
+    needs: flutter-test
     environment: ${{ inputs.environment }}
 
     steps:
