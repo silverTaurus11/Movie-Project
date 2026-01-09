@@ -3,11 +3,11 @@ name: Android DEV Firebase Distribution
 on:
   push:
     tags:
-      - "dev-*"
+      - "dev-android-*"
 
 jobs:
   android-dev:
-    uses: ./.github/workflows/android-common.yml
+    uses: ./.github/workflows/android/android-common.yml
     secrets: inherit
     with:
       fastlane_lane: dev

@@ -3,11 +3,11 @@ name: Android PROD Release
 on:
   push:
     tags:
-      - "prod-*"
+      - "prod-android-*"
 
 jobs:
   android-prod:
-    uses: ./.github/workflows/android-common.yml
+    uses: ./.github/workflows/android/android-common.yml
     secrets: inherit
     with:
       fastlane_lane: prod_release

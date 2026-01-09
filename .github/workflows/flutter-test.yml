@@ -1,0 +1,11 @@
+name: Flutter Test
+
+jobs:
+  test:
+    continue-on-error: false
+    steps:
+      - name: Setup Machine
+        uses: /.github/workflows/setup-common.yml
+
+      - name: Run Flutter tests
+        run: flutter test --coverage
