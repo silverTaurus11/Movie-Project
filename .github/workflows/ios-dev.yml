@@ -31,6 +31,9 @@ jobs:
           mkdir -p credential
           echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > credential/firebase.json
 
+      - name: Flutter pub get
+        run: flutter pub get
+
       - name: Install iOS Pods
         run: |
           cd ${{ github.workspace }}/ios
