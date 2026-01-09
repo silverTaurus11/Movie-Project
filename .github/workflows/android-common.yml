@@ -13,7 +13,6 @@ on:
 jobs:
   flutter-test:
     uses: ./.github/workflows/flutter-test.yml
-    needs: setup
 
   build:
     runs-on: ubuntu-latest
