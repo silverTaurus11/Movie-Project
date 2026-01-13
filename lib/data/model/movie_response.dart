@@ -1,8 +1,8 @@
-import 'package:dummy_project/domain/model/movie_item.dart';
+import 'package:dummy_project/data/model/movie_model.dart';
 
 class MovieResponse {
   final int page;
-  final List<Movie> results;
+  final List<MovieModel> results;
   final int totalPages;
   final int totalResults;
 
@@ -17,7 +17,7 @@ class MovieResponse {
     return MovieResponse(
         page: json['page'],
         results: (json['results'] as List)
-            .map((e) => Movie.fromJson(e))
+            .map((e) => MovieModel.fromJson(e))
             .toList(),
         totalPages: json['total_pages'],
         totalResults: json['total_results']);

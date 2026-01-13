@@ -10,12 +10,15 @@ class GeneralCard extends StatelessWidget {
 
   final double borderRadius;
 
+  final GestureTapCallback? onTap;
+
   const GeneralCard({
     super.key,
     this.width,
     this.height,
     this.borderRadius = 16,
     this.child,
+    this.onTap,
   });
 
   @override
@@ -34,7 +37,7 @@ class GeneralCard extends StatelessWidget {
           ),
         ],
       ),
-      child: child,
+      child: GestureDetector(onTap: onTap, child: child),
     );
   }
 }

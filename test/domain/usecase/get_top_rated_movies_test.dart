@@ -21,8 +21,8 @@ void main() {
     final params = GetTopRatedMoviesParams(page: page);
 
     final movies = [
-      Movie(id: 1, title: 'Movie A', overview: 'No comment', posterPath: 'none', voteAverage: 1.0, releaseDate: 'none'),
-      Movie(id: 2, title: 'Movie B', overview: 'No comment', posterPath: 'none', voteAverage: 1.0, releaseDate: 'none'),
+      Movie(id: 1, title: 'Movie A', overview: 'No comment', posterPath: 'none', voteAverage: 1.0, releaseDate: 'none', backdropPath: '', runtime: 123, tagline: '', genres: []),
+      Movie(id: 2, title: 'Movie B', overview: 'No comment', posterPath: 'none', voteAverage: 1.0, releaseDate: 'none', backdropPath: '', runtime: 123, tagline: '', genres: []),
     ];
 
     when(() => mockRepository.getTopRatedMovies(page: page))

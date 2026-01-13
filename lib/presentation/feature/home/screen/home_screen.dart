@@ -29,8 +29,8 @@ class _MainNavigationPageState extends State<MainNavigationPage> {
       providers: [
         BlocProvider<TopRatedMovieBloc>(
           create: (_) =>
-              getIt<TopRatedMovieBloc>()
-                ..add(LoadTopRatedMovies(page: GetTopRatedMoviesParams())),
+          getIt<TopRatedMovieBloc>()
+            ..add(LoadTopRatedMovies(page: GetTopRatedMoviesParams())),
         ),
       ],
       child: Scaffold(

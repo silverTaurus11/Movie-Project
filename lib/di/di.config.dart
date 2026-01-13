@@ -1,5 +1,5 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format width=80
+// GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
 // InjectableConfigGenerator
@@ -18,8 +18,12 @@ import 'package:dummy_project/data/resources/network/remote_data_source_impl.dar
     as _i120;
 import 'package:dummy_project/di/network_module.dart' as _i636;
 import 'package:dummy_project/domain/repository/movie_repository.dart' as _i511;
+import 'package:dummy_project/domain/usecase/get_movie_detail_with_cast.dart'
+    as _i683;
 import 'package:dummy_project/domain/usecase/get_top_rated_movies.dart'
     as _i842;
+import 'package:dummy_project/presentation/feature/detail/bloc/movie_detail_bloc.dart'
+    as _i243;
 import 'package:dummy_project/presentation/feature/top_rated_movie/bloc/top_rated_movie_bloc.dart'
     as _i656;
 import 'package:get_it/get_it.dart' as _i174;
@@ -49,6 +53,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i842.GetTopRatedMovies>(
       () => _i842.GetTopRatedMovies(gh<_i511.MovieRepository>()),
+    );
+    gh.factory<_i683.GetMovieDetailWithCast>(
+      () => _i683.GetMovieDetailWithCast(gh<_i511.MovieRepository>()),
+    );
+    gh.factory<_i243.MovieDetailBloc>(
+      () => _i243.MovieDetailBloc(gh<_i683.GetMovieDetailWithCast>()),
     );
     gh.factory<_i656.TopRatedMovieBloc>(
       () => _i656.TopRatedMovieBloc(gh<_i842.GetTopRatedMovies>()),

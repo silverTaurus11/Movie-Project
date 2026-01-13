@@ -1,8 +1,11 @@
+import 'package:dummy_project/presentation/feature/component/aync_image.dart';
 import 'package:dummy_project/presentation/feature/component/general_card.dart';
 import 'package:dummy_project/presentation/feature/component/rating_circle.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MovieCard extends StatelessWidget {
+  final int id;
   final String title;
   final String posterUrl;
   final double voteAverage;
@@ -14,12 +17,16 @@ class MovieCard extends StatelessWidget {
     required this.posterUrl,
     required this.voteAverage,
     required this.releaseDate,
+    required this.id,
   });
 
   @override
   Widget build(BuildContext context) {
     return GeneralCard(
       borderRadius: 16,
+      onTap: () {
+        context.go('/movies/$id');
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -27,11 +34,13 @@ class MovieCard extends StatelessWidget {
             flex: 1,
             child: Stack(
               children: [
-                ClipRRect(
+                AsyncImage(
+                  imagePath: posterUrl,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(16),
                   ),
-                  child: Image.network(posterUrl, width: double.infinity, fit: BoxFit.cover),
                 ),
 
                 Positioned(

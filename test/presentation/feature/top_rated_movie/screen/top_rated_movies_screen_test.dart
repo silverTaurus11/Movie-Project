@@ -55,14 +55,22 @@ void main() {
           voteAverage: 8.5,
           releaseDate: '2024-01-01',
           overview: '',
+          backdropPath: '',
+          runtime: 123,
+          tagline: '',
+          genres: [],
         ),
         Movie(
           id: 2,
           title: 'Movie B',
-          posterPath: '/posterB.jpg',
-          voteAverage: 7.9,
-          releaseDate: '2023-05-01',
+          posterPath: '/posterA.jpg',
+          voteAverage: 8.5,
+          releaseDate: '2024-01-01',
           overview: '',
+          backdropPath: '',
+          runtime: 123,
+          tagline: '',
+          genres: [],
         ),
       ];
 
@@ -73,9 +81,7 @@ void main() {
       );
 
       // When
-      await tester.pumpWidget(
-        buildTestableTopRatedMovieScreen(bloc: mockBloc),
-      );
+      await tester.pumpWidget(buildTestableTopRatedMovieScreen(bloc: mockBloc));
       await tester.pump();
 
       // Then

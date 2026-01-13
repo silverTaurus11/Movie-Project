@@ -33,6 +33,7 @@ class TopRatedMovieScreen extends StatelessWidget {
               itemBuilder: (_, index) {
                 final movie = state.movies[index];
                 return MovieCard(
+                  id: movie.id,
                   title: movie.title,
                   posterUrl: movie.posterPath.toImageUrl(),
                   voteAverage: movie.voteAverage,

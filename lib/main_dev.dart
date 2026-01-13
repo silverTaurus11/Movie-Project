@@ -9,27 +9,29 @@ import 'firebase_options_dev.dart';
 import 'di/di.dart';
 import 'main.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env.dev");
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+void main() {
+  runZonedGuarded(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      await dotenv.load(fileName: ".env.dev");
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+
+      FlutterError.onError =
+          FirebaseCrashlytics.instance.recordFlutterFatalError;
+
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+
+      configureDependencies(
+        baseUrl: dotenv.env['BASE_URL'] ?? "",
+        token: dotenv.env['TOKEN'] ?? "",
+      );
+
+      runApp(const MyApp());
+    },
+    (error, stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    },
   );
-
-  FlutterError.onError =
-      FirebaseCrashlytics.instance.recordFlutterFatalError;
-
-  await FirebaseCrashlytics.instance
-      .setCrashlyticsCollectionEnabled(true);
-
-  configureDependencies(
-    baseUrl: dotenv.env['BASE_URL'] ?? "",
-    token: dotenv.env['TOKEN'] ?? "",
-  );
-
-  runZonedGuarded(() {
-    runApp(const MyApp());
-  }, (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-  });
 }
