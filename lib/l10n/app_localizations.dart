@@ -112,6 +112,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Top Rated'**
   String get top_rated;
+
+  /// No description provided for @overview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get overview;
+
+  /// No description provided for @cast.
+  ///
+  /// In en, this message translates to:
+  /// **'Cast'**
+  String get cast;
+
+  /// No description provided for @user_score.
+  ///
+  /// In en, this message translates to:
+  /// **'User Score'**
+  String get user_score;
+
+  /// No description provided for @play_trailer.
+  ///
+  /// In en, this message translates to:
+  /// **'Play Trailer'**
+  String get play_trailer;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

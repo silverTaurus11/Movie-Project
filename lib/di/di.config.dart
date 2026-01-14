@@ -10,6 +10,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
+import 'package:dummy_project/data/locale/locale_provider.dart' as _i516;
 import 'package:dummy_project/data/repository/movie_repository_impl.dart'
     as _i806;
 import 'package:dummy_project/data/resources/network/remote_data_source.dart'
@@ -44,7 +45,10 @@ extension GetItInjectableX on _i174.GetIt {
       ),
     );
     gh.lazySingleton<_i1029.MovieRemoteDataSource>(
-      () => _i120.MovieRemoteDataSourceImpl(dio: gh<_i361.Dio>()),
+      () => _i120.MovieRemoteDataSourceImpl(
+        dio: gh<_i361.Dio>(),
+        locale: gh<_i516.LocaleProvider>(),
+      ),
     );
     gh.lazySingleton<_i511.MovieRepository>(
       () => _i806.MovieRepositoryImpl(

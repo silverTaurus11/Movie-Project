@@ -5,6 +5,7 @@ import 'package:dummy_project/helper/string_ext.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain/model/movie_item.dart';
+import '../../../../l10n/app_localizations.dart';
 
 class MetaInfoSection extends StatelessWidget {
   final Movie movie;
@@ -18,6 +19,7 @@ class MetaInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Align(
@@ -38,7 +40,7 @@ class MetaInfoSection extends StatelessWidget {
                 _separator(),
                 _dotText(movie.runtime.formatMinutesToHourMinute()),
                 const SizedBox(width: 12),
-                _playTrailer(trailerUrl),
+                _playTrailer(trailerUrl, loc.play_trailer),
               ],
             ),
             const SizedBox(height: 6),
@@ -84,18 +86,18 @@ class MetaInfoSection extends StatelessWidget {
     );
   }
 
-  Widget _playTrailer(String url) {
+  Widget _playTrailer(String url, String label) {
     return InkWell(
       borderRadius: BorderRadius.circular(4),
       onTap: () {
         openYoutube(url);
       },
       child: Row(
-        children: const [
+        children: [
           Icon(Icons.play_arrow, size: 18, color: Colors.white),
           SizedBox(width: 4),
           Text(
-            'Play Trailer',
+            label,
             style: TextStyle(
               color: Colors.white,
               fontSize: 13,

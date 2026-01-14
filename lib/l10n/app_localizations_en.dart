@@ -16,4 +16,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get top_rated => 'Top Rated';
+
+  @override
+  String get overview => 'Overview';
+
+  @override
+  String get cast => 'Cast';
+
+  @override
+  String get user_score => 'User Score';
+
+  @override
+  String get play_trailer => 'Play Trailer';
 }

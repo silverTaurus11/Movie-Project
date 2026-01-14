@@ -16,4 +16,16 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get top_rated => 'Peringkat Teratas';
+
+  @override
+  String get overview => 'Ringkasan';
+
+  @override
+  String get cast => 'Pemeran';
+
+  @override
+  String get user_score => 'Skor Penonton';
+
+  @override
+  String get play_trailer => 'Lihat Trailer';
 }

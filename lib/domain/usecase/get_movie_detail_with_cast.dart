@@ -15,10 +15,14 @@ class GetMovieDetailWithCast implements UseCase<MovieDetail, int> {
 
   @override
   Future<MovieDetail> call(int movieId) async {
+    final movieFuture = _safe(() => repository.getMovieDetail(movieId));
+    final creditsFuture = _safe(() => repository.getMovieCast(movieId));
+    final videosFuture = _safe(() => repository.getMovieVideos(movieId));
+
     final results = await Future.wait([
-      repository.getMovieDetail(movieId),
-      repository.getMovieCast(movieId),
-      repository.getMovieVideos(movieId),
+      movieFuture,
+      creditsFuture,
+      videosFuture,
     ]);
 
     final movie = results[0] as Movie;
@@ -30,7 +34,15 @@ class GetMovieDetailWithCast implements UseCase<MovieDetail, int> {
     return MovieDetail(
       movie: movie,
       cast: cast,
-      trailer: trailers.first.youtubeUrl,
+      trailer: trailers.firstOrNull?.youtubeUrl ?? "",
     );
+  }
+
+  Future<T?> _safe<T>(Future<T> Function() call) async {
+    try {
+      return await call();
+    } catch (_) {
+      return null;
+    }
   }
 }

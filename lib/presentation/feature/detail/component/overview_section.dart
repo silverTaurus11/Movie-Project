@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../l10n/app_localizations.dart';
+
 class OverviewSection extends StatelessWidget {
   final String overview;
 
@@ -7,13 +9,15 @@ class OverviewSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Overview',
+          Text(
+            loc.overview,
             style: TextStyle(
               color: Colors.white,
               fontSize: 18,

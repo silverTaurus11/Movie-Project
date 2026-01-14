@@ -5,6 +5,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'data/locale/locale_provider.dart';
 import 'di/di.dart';
 import 'firebase_options.dart';
 import 'main.dart';
@@ -27,6 +28,9 @@ Future<void> main() async {
         baseUrl: dotenv.env['BASE_URL'] ?? "",
         token: dotenv.env['TOKEN'] ?? "",
       );
+
+      final systemLocale = WidgetsBinding.instance.platformDispatcher.locale;
+      getIt<LocaleProvider>().update(systemLocale);
 
       runApp(const MyApp());
     },

@@ -3,6 +3,7 @@ import 'package:dummy_project/presentation/feature/component/aync_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain/model/cast_item.dart';
+import '../../../../l10n/app_localizations.dart';
 
 class CastSection extends StatelessWidget {
   final List<Cast> cast;
@@ -11,13 +12,14 @@ class CastSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Cast',
+          Text(
+            loc.cast,
             style: TextStyle(
               color: Colors.white,
               fontSize: 18,

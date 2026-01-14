@@ -2,6 +2,8 @@ import 'package:dummy_project/presentation/feature/component/rating_circle.dart'
 import 'package:dummy_project/presentation/feature/detail/component/animated_emoji_button.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../l10n/app_localizations.dart';
+
 class RatingSection extends StatelessWidget {
   final double rating;
   final VoidCallback? onHappyTap;
@@ -18,14 +20,16 @@ class RatingSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
           RatingCircle(rating: rating),
           const SizedBox(width: 10),
-          const Text(
-            "User Score",
+          Text(
+            loc.user_score,
             style: TextStyle(
               color: Colors.white,
               fontSize: 16,

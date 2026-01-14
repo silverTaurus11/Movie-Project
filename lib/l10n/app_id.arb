@@ -2,5 +2,9 @@
   "@@locale": "id",
   "movie_tab": "Film",
   "profile_tab": "Profil",
-  "top_rated": "Peringkat Teratas"
+  "top_rated": "Peringkat Teratas",
+  "overview": "Ringkasan",
+  "cast": "Pemeran",
+  "user_score": "Skor Penonton",
+  "play_trailer": "Lihat Trailer"
 }
