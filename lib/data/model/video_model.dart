@@ -18,7 +18,7 @@ class MovieVideoModel extends MovieVideo {
       key: json['key'] as String,
       site: json['site'] as String,
       type: json['type'] as String,
-      official: json['official'] as bool? ?? false,
+      official: (json['official'] as int) == 1,
     );
   }
 }

@@ -21,6 +21,7 @@ class MovieSyncWorker(
 
             val repository = MovieSyncRepositoryImpl(
                 MovieRemoteDataSourceImpl(MoviesApi.createApi()),
+                db,
                 db.movieDao()
             )
 

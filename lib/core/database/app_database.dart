@@ -26,6 +26,8 @@ class AppDatabase {
   static Future<void> _onCreate(Database db, int version) async {
     await db.execute(DbSchema.createMovies);
     await db.execute(DbSchema.createMovieCast);
+    await db.execute(DbSchema.createMovieCastIndex);
     await db.execute(DbSchema.createMovieVideos);
+    await db.execute(DbSchema.createMovieVideosIndex);
   }
 }

@@ -19,7 +19,7 @@ class DbSchema {
 
   static const createMovieCast = '''
   CREATE TABLE movie_cast (
-    id INTEGER PRIMARY KEY,
+    id INTEGER NOT NULL PRIMARY KEY,
     movie_id INTEGER NOT NULL,
     name TEXT NOT NULL,
     character TEXT NOT NULL,
@@ -27,9 +27,14 @@ class DbSchema {
   );
   ''';
 
+  static const createMovieCastIndex = '''
+  CREATE INDEX index_movie_cast_movie_id
+  ON movie_cast(movie_id);
+  ''';
+
   static const createMovieVideos = '''
   CREATE TABLE movie_videos (
-    id TEXT PRIMARY KEY,
+    id TEXT NOT NULL PRIMARY KEY,
     movie_id INTEGER NOT NULL,
     name TEXT NOT NULL,
     key TEXT NOT NULL,
@@ -37,5 +42,10 @@ class DbSchema {
     type TEXT NOT NULL,
     official INTEGER NOT NULL
   );
+  ''';
+
+  static const createMovieVideosIndex = '''
+  CREATE INDEX index_movie_videos_movie_id
+  ON movie_videos(movie_id);
   ''';
 }

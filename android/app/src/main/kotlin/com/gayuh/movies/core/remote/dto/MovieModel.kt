@@ -46,20 +46,20 @@ data class MovieModel(
         fun MovieModel.toEntity(): MovieEntity =
             MovieEntity(
                 id = id,
-                title = title ?: "",
-                overview = overview ?: "",
-                posterPath = posterPath ?: "",
-                backdropPath = backdropPath ?: "",
-                releaseDate = releaseDate ?: "",
-                runtime = runtime ?: 0,
-                voteAverage = voteAverage ?: 0.0,
-                tagline = tagline ?: "",
+                title = title,
+                overview = overview,
+                posterPath = posterPath,
+                backdropPath = backdropPath,
+                releaseDate = releaseDate,
+                runtime = runtime,
+                voteAverage = voteAverage,
+                tagline = tagline,
                 genres = genres.joinToString(
                     prefix = "[",
                     postfix = "]"
                 ) { "\"${it.name}\"" },
                 adult = if (adult) 1 else 0,
-                originalLanguage = originalLanguage ?: "",
+                originalLanguage = originalLanguage,
                 updatedAt = System.currentTimeMillis()
             )
     }

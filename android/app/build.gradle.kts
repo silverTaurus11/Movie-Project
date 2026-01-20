@@ -79,6 +79,10 @@ android {
             excludes += "META-INF/versions/9/OSGI-INF/MANIFEST.MF"
         }
     }
+
+    sourceSets["main"].assets.srcDir(
+        "${rootDir.parent}/database"
+    )
 }
 
 flutter {
