@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:dio/dio.dart';
 import 'package:dummy_project/data/locale/locale_provider.dart';
 import 'package:dummy_project/data/model/video_model.dart';
@@ -8,13 +6,12 @@ import 'package:injectable/injectable.dart';
 import '../../model/cast_model.dart';
 import '../../model/movie_model.dart';
 import '../../model/movie_response.dart';
-import 'remote_data_source.dart';
+import '../remote_data_source.dart';
 
 @LazySingleton(as: MovieRemoteDataSource)
 class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   final Dio dio;
   final LocaleProvider locale;
-
 
   MovieRemoteDataSourceImpl({required this.dio, required this.locale});
 

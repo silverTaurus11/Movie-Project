@@ -13,10 +13,11 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:dummy_project/data/locale/locale_provider.dart' as _i516;
 import 'package:dummy_project/data/repository/movie_repository_impl.dart'
     as _i806;
-import 'package:dummy_project/data/resources/network/remote_data_source.dart'
-    as _i1029;
+import 'package:dummy_project/data/resources/local/local_data_source_impl.dart'
+    as _i664;
 import 'package:dummy_project/data/resources/network/remote_data_source_impl.dart'
     as _i120;
+import 'package:dummy_project/data/resources/remote_data_source.dart' as _i623;
 import 'package:dummy_project/di/network_module.dart' as _i636;
 import 'package:dummy_project/domain/repository/movie_repository.dart' as _i511;
 import 'package:dummy_project/domain/usecase/get_movie_detail_with_cast.dart'
@@ -38,21 +39,27 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final networkModule = _$NetworkModule();
+    gh.lazySingleton<_i516.LocaleProvider>(
+      () => networkModule.localeProvider(),
+    );
     gh.lazySingleton<_i361.Dio>(
       () => networkModule.dio(
         gh<String>(instanceName: 'baseUrl'),
         gh<String>(instanceName: 'token'),
       ),
     );
-    gh.lazySingleton<_i1029.MovieRemoteDataSource>(
-      () => _i120.MovieRemoteDataSourceImpl(
-        dio: gh<_i361.Dio>(),
-        locale: gh<_i516.LocaleProvider>(),
-      ),
+    gh.lazySingleton<_i623.MovieLocalDataSource>(
+      () => _i664.LocalDataSourceImpl(),
     );
     gh.lazySingleton<_i511.MovieRepository>(
       () => _i806.MovieRepositoryImpl(
-        remoteDataSource: gh<_i1029.MovieRemoteDataSource>(),
+        localDataSource: gh<_i623.MovieLocalDataSource>(),
+      ),
+    );
+    gh.lazySingleton<_i623.MovieRemoteDataSource>(
+      () => _i120.MovieRemoteDataSourceImpl(
+        dio: gh<_i361.Dio>(),
+        locale: gh<_i516.LocaleProvider>(),
       ),
     );
     gh.factory<_i842.GetTopRatedMovies>(

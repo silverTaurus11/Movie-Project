@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../../domain/model/movie_item.dart';
 
 class MovieModel extends Movie {
@@ -13,10 +15,12 @@ class MovieModel extends Movie {
     required super.tagline,
     required super.genres,
     required super.adult,
-    required super.originalLanguage
+    required super.originalLanguage,
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
+    final List<dynamic>? genreDecoded = jsonDecode(json['genres']);
+
     return MovieModel(
       id: json['id'],
       title: json['title'],
@@ -27,11 +31,9 @@ class MovieModel extends Movie {
       runtime: json['runtime'] ?? 0,
       voteAverage: (json['vote_average'] as num).toDouble(),
       tagline: json['tagline'] ?? '',
-      genres:
-          (json['genres'] as List?)?.map((e) => e['name'] as String).toList() ??
-          [],
-      adult: (json['adult'] as bool),
-      originalLanguage: json['original_language']
+      genres: genreDecoded?.map((e) => e as String).toList() ?? [],
+      adult: (json['adult'] as int) == 1,
+      originalLanguage: json['original_language'],
     );
   }
 }

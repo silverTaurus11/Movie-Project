@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'core/database/db_config_loader.dart';
 import 'data/locale/locale_provider.dart';
 import 'firebase_options_dev.dart';
 

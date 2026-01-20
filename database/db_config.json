@@ -1,0 +1,7 @@
+{
+  "dbName": "movies.db",
+  "dbVersion": 1,
+  "tables": {
+    "movies": "movies"
+  }
+}
