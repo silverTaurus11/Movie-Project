@@ -5,5 +5,5 @@ abstract class MovieEvent {}
 class LoadTopRatedMovies extends MovieEvent {
   final GetTopRatedMoviesParams page;
 
-  LoadTopRatedMovies({required this.page});
+  LoadTopRatedMovies({this.page = const GetTopRatedMoviesParams(page: 1)});
 }
