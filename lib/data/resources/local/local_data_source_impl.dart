@@ -1,14 +1,15 @@
+import 'package:dummy_project/core/app_logger.dart';
 import 'package:dummy_project/data/model/cast_model.dart';
 import 'package:dummy_project/data/model/movie_model.dart';
 import 'package:dummy_project/data/model/video_model.dart';
 import 'package:dummy_project/data/resources/remote_data_source.dart';
 import 'package:injectable/injectable.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../../../core/database/app_database.dart';
 
 @LazySingleton(as: MovieLocalDataSource)
 class LocalDataSourceImpl implements MovieLocalDataSource {
-
   LocalDataSourceImpl();
 
   @override
@@ -59,5 +60,62 @@ class LocalDataSourceImpl implements MovieLocalDataSource {
     );
 
     return rows.map(MovieVideoModel.fromJson).toList();
+  }
+
+  @override
+  Future<void> upsertCast(int movieId, List<CastModel> cast) async {
+    final db = await AppDatabase.instance();
+
+    await db.transaction((txn) async {
+      for (final i in cast) {
+        await txn.insert(
+          'movie_cast',
+          i.toJson(movieId),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+    });
+  }
+
+  @override
+  Future<void> upsertMovie(MovieModel movie) async {
+    final db = await AppDatabase.instance();
+
+    await db.insert(
+      'movies',
+      movie.toJson(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  @override
+  Future<void> upsertMovies(List<MovieModel> movies) async {
+    final db = await AppDatabase.instance();
+
+    await db.transaction((txn) async {
+      for (final movie in movies) {
+        AppLogger.d(movie.title);
+        await txn.insert(
+          'movies',
+          movie.toJson(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+    });
+  }
+
+  @override
+  Future<void> upsertVideos(int movieId, List<MovieVideoModel> videos) async {
+    final db = await AppDatabase.instance();
+
+    await db.transaction((txn) async {
+      for (final video in videos) {
+        await txn.insert(
+          'movie_videos',
+          video.toJson(movieId),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+    });
   }
 }

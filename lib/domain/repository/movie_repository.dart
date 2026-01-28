@@ -8,4 +8,8 @@ abstract class MovieRepository {
   Future<Movie?> getMovieDetail(int movieId);
   Future<List<Cast>> getMovieCast(int movieId);
   Future<List<MovieVideo>> getMovieVideos(int movieId);
+  Future<void> syncTopRatedMovies({int page});
+  Future<void> syncMovieDetail(int movieId);
+  Future<void> syncMovieCast(int movieId);
+  Future<void> syncMovieVideos(int movieId);
 }

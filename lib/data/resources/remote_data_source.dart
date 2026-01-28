@@ -15,4 +15,9 @@ abstract class MovieRemoteDataSource implements MovieDataSource {
 
 abstract class MovieLocalDataSource implements MovieDataSource {
   Future<List<MovieModel>> getTopRatedMovies({int page = 1});
+  Future<void> upsertMovies(List<MovieModel> movies);
+  Future<void> upsertMovie(MovieModel movie);
+  Future<void> upsertCast(int movieId, List<CastModel> cast);
+  Future<void> upsertVideos(int movieId, List<MovieVideoModel> videos);
+
 }

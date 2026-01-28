@@ -10,6 +10,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
+import 'package:dummy_project/app/sync_state_notifier.dart' as _i601;
 import 'package:dummy_project/data/locale/locale_provider.dart' as _i516;
 import 'package:dummy_project/data/repository/movie_repository_impl.dart'
     as _i806;
@@ -24,6 +25,7 @@ import 'package:dummy_project/domain/usecase/get_movie_detail_with_cast.dart'
     as _i683;
 import 'package:dummy_project/domain/usecase/get_top_rated_movies.dart'
     as _i842;
+import 'package:dummy_project/domain/usecase/sync_usecase.dart' as _i402;
 import 'package:dummy_project/presentation/feature/detail/bloc/movie_detail_bloc.dart'
     as _i243;
 import 'package:dummy_project/presentation/feature/top_rated_movie/bloc/top_rated_movie_bloc.dart'
@@ -42,6 +44,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i516.LocaleProvider>(
       () => networkModule.localeProvider(),
     );
+    gh.lazySingleton<_i601.SyncStateNotifier>(() => _i601.SyncStateNotifier());
     gh.lazySingleton<_i361.Dio>(
       () => networkModule.dio(
         gh<String>(instanceName: 'baseUrl'),
@@ -51,15 +54,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i623.MovieLocalDataSource>(
       () => _i664.LocalDataSourceImpl(),
     );
-    gh.lazySingleton<_i511.MovieRepository>(
-      () => _i806.MovieRepositoryImpl(
-        localDataSource: gh<_i623.MovieLocalDataSource>(),
-      ),
-    );
     gh.lazySingleton<_i623.MovieRemoteDataSource>(
       () => _i120.MovieRemoteDataSourceImpl(
         dio: gh<_i361.Dio>(),
         locale: gh<_i516.LocaleProvider>(),
+      ),
+    );
+    gh.lazySingleton<_i511.MovieRepository>(
+      () => _i806.MovieRepositoryImpl(
+        remoteDataSource: gh<_i623.MovieRemoteDataSource>(),
+        localDataSource: gh<_i623.MovieLocalDataSource>(),
       ),
     );
     gh.factory<_i842.GetTopRatedMovies>(
@@ -68,11 +72,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i683.GetMovieDetailWithCast>(
       () => _i683.GetMovieDetailWithCast(gh<_i511.MovieRepository>()),
     );
+    gh.factory<_i402.SyncUseCase>(
+      () => _i402.SyncUseCase(gh<_i511.MovieRepository>()),
+    );
     gh.factory<_i243.MovieDetailBloc>(
       () => _i243.MovieDetailBloc(gh<_i683.GetMovieDetailWithCast>()),
     );
     gh.factory<_i656.TopRatedMovieBloc>(
-      () => _i656.TopRatedMovieBloc(gh<_i842.GetTopRatedMovies>()),
+      () => _i656.TopRatedMovieBloc(
+        gh<_i842.GetTopRatedMovies>(),
+        gh<_i601.SyncStateNotifier>(),
+      ),
     );
     return this;
   }

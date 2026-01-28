@@ -8,6 +8,16 @@ class CastModel extends Cast {
     required super.profilePath,
   });
 
+  Map<String, dynamic> toJson(int movieId) {
+    return {
+      'id': id,
+      'movie_id': movieId,
+      'name': name,
+      'character': character,
+      'profile_path': profilePath,
+    };
+  }
+
   factory CastModel.fromJson(Map<String, dynamic> json) {
     return CastModel(
       id: json['id'],

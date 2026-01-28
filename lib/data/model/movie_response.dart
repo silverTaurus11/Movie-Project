@@ -17,7 +17,7 @@ class MovieResponse {
     return MovieResponse(
         page: json['page'],
         results: (json['results'] as List)
-            .map((e) => MovieModel.fromJson(e))
+            .map((e) => MovieModel.fromNetwork(e))
             .toList(),
         totalPages: json['total_pages'],
         totalResults: json['total_results']);

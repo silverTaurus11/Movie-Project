@@ -43,7 +43,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
       '/movie/$movieId',
       queryParameters: {'language': _mapLocaleToApi(locale)},
     );
-    return MovieModel.fromJson(response.data);
+    return MovieModel.fromNetwork(response.data);
   }
 
   @override
@@ -55,7 +55,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
 
     final results = response.data['results'] as List? ?? [];
 
-    return results.map((e) => MovieVideoModel.fromJson(e)).toList();
+    return results.map((e) => MovieVideoModel.fromNetwork(e)).toList();
   }
 
   String _mapLocaleToApi(LocaleProvider locale) {
